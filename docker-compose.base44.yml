@@ -1,0 +1,22 @@
+services:
+  docs:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    command:
+      - sh
+      - -ec
+      - |
+        pip install --no-cache-dir --quiet mkdocs mkdocs-material "mkdocstrings[python]" && exec mkdocs serve --dev-addr 0.0.0.0:3000
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:3000')"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 90s
+    restart: on-failure
