@@ -516,6 +516,139 @@
     }
     .form-error.show { display: block; }
 
+    /* ---- Template Gallery ---- */
+    .gallery {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .gallery h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .gallery > p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+    .gallery-filters {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .gallery-filter {
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .gallery-filter:hover { color: var(--text); border-color: var(--border-hover); }
+    .gallery-filter.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: left;
+    }
+    @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    .template-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .template-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+    }
+    .template-card.selected {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 2px var(--accent), 0 8px 32px var(--accent-glow);
+    }
+    .template-card.hidden { display: none; }
+    .template-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      background: rgba(99, 102, 241, 0.12);
+    }
+    .template-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-2);
+      background: rgba(99, 102, 241, 0.1);
+      margin-bottom: 16px;
+    }
+    .template-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .template-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .template-use {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-2);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .template-card:hover .template-use { gap: 10px; }
+    .gallery-selected-bar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+      padding: 20px;
+      border-radius: var(--radius);
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid var(--border);
+    }
+    .gallery-selected-bar.show { display: flex; }
+    .gallery-selected-bar span { color: var(--text-muted); font-size: 0.95rem; }
+    .gallery-selected-bar strong { color: var(--text); }
+    .gallery-selected-bar .btn { padding: 10px 24px; font-size: 0.92rem; }
+
     /* ---- Footer ---- */
     footer {
       border-top: 1px solid var(--border);
@@ -576,6 +709,7 @@
       <div class="nav-links">
         <a href="#pillars">How It Works</a>
         <a href="#workflow">Workflow</a>
+        <a href="#templates">Templates</a>
         <a href="#contact" class="nav-cta">Get Started</a>
       </div>
     </div>
@@ -655,6 +789,68 @@
     </div>
   </section>
 
+  <!-- Template Gallery -->
+  <section class="gallery" id="templates">
+    <div class="section-label reveal">Template Gallery</div>
+    <h2 class="reveal">Start from a pre-built template</h2>
+    <p class="reveal">Browse ready-made automation templates. Pick one to get started in minutes — no building from scratch.</p>
+    <div class="gallery-filters reveal">
+      <button class="gallery-filter active" data-filter="all">All</button>
+      <button class="gallery-filter" data-filter="marketing">Marketing</button>
+      <button class="gallery-filter" data-filter="sales">Sales</button>
+      <button class="gallery-filter" data-filter="operations">Operations</button>
+      <button class="gallery-filter" data-filter="data">Data &amp; AI</button>
+    </div>
+    <div class="gallery-grid">
+      <div class="template-card reveal" data-category="marketing">
+        <div class="template-icon">📧</div>
+        <span class="template-tag">Marketing</span>
+        <h4>Email Campaign Automator</h4>
+        <p>Auto-generate, schedule, and send personalized email campaigns based on customer behavior triggers.</p>
+        <a href="#contact" class="template-use">Use this template →</a>
+      </div>
+      <div class="template-card reveal" data-category="sales">
+        <div class="template-icon">🎯</div>
+        <span class="template-tag">Sales</span>
+        <h4>Lead Scoring Pipeline</h4>
+        <p>Score and route incoming leads automatically using AI — so your team only talks to ready-to-buy prospects.</p>
+        <a href="#contact" class="template-use">Use this template →</a>
+      </div>
+      <div class="template-card reveal" data-category="operations">
+        <div class="template-icon">📋</div>
+        <span class="template-tag">Operations</span>
+        <h4>Report Generator</h4>
+        <p>Pull data from multiple sources, compile it into formatted reports, and deliver them on a schedule — hands-free.</p>
+        <a href="#contact" class="template-use">Use this template →</a>
+      </div>
+      <div class="template-card reveal" data-category="data">
+        <div class="template-icon">🤖</div>
+        <span class="template-tag">Data &amp; AI</span>
+        <h4>AI Data Enrichment</h4>
+        <p>Automatically enrich records with AI-extracted insights — company info, sentiment, summaries, and more.</p>
+        <a href="#contact" class="template-use">Use this template →</a>
+      </div>
+      <div class="template-card reveal" data-category="marketing">
+        <div class="template-icon">📱</div>
+        <span class="template-tag">Marketing</span>
+        <h4>Social Media Scheduler</h4>
+        <p>Plan, generate, and post across all your social channels on autopilot — with AI-assisted content creation.</p>
+        <a href="#contact" class="template-use">Use this template →</a>
+      </div>
+      <div class="template-card reveal" data-category="operations">
+        <div class="template-icon">🔄</div>
+        <span class="template-tag">Operations</span>
+        <h4>Invoice &amp; Billing Bot</h4>
+        <p>Generate invoices from triggers, send reminders for overdue payments, and reconcile — all automatically.</p>
+        <a href="#contact" class="template-use">Use this template →</a>
+      </div>
+    </div>
+    <div class="gallery-selected-bar" id="selectedBar">
+      <span>Selected: <strong id="selectedName">—</strong></span>
+      <a href="#contact" class="btn btn-primary">Continue with this template →</a>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-section" id="contact">
     <div class="cta-card reveal">
@@ -693,6 +889,7 @@
       <div class="footer-links">
         <a href="#pillars">How It Works</a>
         <a href="#workflow">Workflow</a>
+        <a href="#templates">Templates</a>
         <a href="#contact">Contact</a>
       </div>
       <div class="footer-copy">© 2026 Alom DigiTech. Build. Automate. Scale.</div>
@@ -716,6 +913,33 @@
       });
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Template gallery filters
+    const filters = document.querySelectorAll('.gallery-filter');
+    const templateCards = document.querySelectorAll('.template-card');
+    const selectedBar = document.getElementById('selectedBar');
+    const selectedName = document.getElementById('selectedName');
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.forEach(f => f.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        templateCards.forEach(card => {
+          card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
+        });
+      });
+    });
+
+    // Template selection
+    templateCards.forEach(card => {
+      card.addEventListener('click', () => {
+        templateCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        const name = card.querySelector('h4').textContent;
+        selectedName.textContent = name;
+        selectedBar.classList.add('show');
+      });
+    });
 
     // Lead form submission
     const leadForm = document.getElementById('leadForm');
